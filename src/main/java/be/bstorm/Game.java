@@ -12,40 +12,17 @@ import java.util.Scanner;
 public class Game {
 
     private Hero hero;
-    private List<Monster> monsters;
+    private Board board;
 
     public Game() {
         this.hero = selectHero();
-        this.monsters = MonsterFactory.generate(10);
-        for(Monster monster : monsters){
-            monster.setDieEvent(m -> hero.loot(m));
-        }
+        this.board = new Board(hero);
     }
 
     public void start() {
-
         while (hero.isAlive()) {
-
-            for (Monster m : monsters) {
-
-                while (hero.isAlive() && m.isAlive()) {
-
-                    System.out.println("Hero attack");
-                    hero.attack(m);
-                    if (m.isAlive()) {
-                        System.out.println("Monster attack");
-                        m.attack(hero);
-                    }
-
-                }
-                if(!hero.isAlive()){
-                    System.out.println("Game Over");
-                    return;
-                }
-                System.out.println("Next one");
-            }
-            System.out.println("You win!");
-            return;
+            board.displayMap();
+            board.moove();
         }
     }
 

@@ -12,6 +12,7 @@ public abstract class Entity {
     private int strength;
     private int hp;
     private int currentHp;
+    private Position pos;
 
     public Entity(int stamina, int strength) {
         this.stamina = Dice.D6.rolls(4,3) + stamina;
@@ -38,6 +39,14 @@ public abstract class Entity {
 
     public void setCurrentHp(int currentHp) {
         this.currentHp = currentHp < 0 ? 0 : (currentHp > hp ? hp : currentHp);
+    }
+
+    public Position getPos() {
+        return pos;
+    }
+
+    public void setPos(Position pos) {
+        this.pos = pos;
     }
 
     public boolean isAlive(){
